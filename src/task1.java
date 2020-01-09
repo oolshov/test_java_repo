@@ -1,13 +1,16 @@
 package com.example.helloworld;
 import java.util.*;
+
+import com.sun.deploy.security.SelectableSecurityManager;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class Task_1 {
+
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
         int[] numbers = {1, 5, 10, 24, 55, -20};
-        String[] textArray = {"hello", "my", "name", "is", "Orest", "hello"};
+        String[] textArray = {null, "hello", "my", null, "name", "is", "Orest", "hello"};
 
         getMinMaxValue(numbers);
         reverseArray(numbers);
@@ -20,7 +23,13 @@ public class Task_1 {
     // 1. Write a Java program to find the maximum and minimum value of an array
     public static void getMinMaxValue(int[] numbers) {
 
+        if (numbers == null || numbers.length < 1) {
+            System.out.println("method getMinMaxValue parameter 'numbers' is: null or 0 length");
+            return;
+        }
+
         int maxValue = numbers[0], minValue = numbers[0];
+
         for (int i = 1; i < numbers.length; i++) {
             if (numbers[i] > maxValue) {
                 maxValue = numbers[i];
@@ -54,8 +63,13 @@ public class Task_1 {
 
         for (int i = 0; i < textArray.length-1; i++) {
             for (int j = i + 1; j < textArray.length; j++) {
-                if( (textArray[i].equals(textArray[j])) && (i != j) ) {
-                    System.out.println("Duplicate Element is : "+ textArray[j]);
+                try {
+                    if( (textArray[i].equals(textArray[j])) && (i != j) ) {
+                        System.out.println("Duplicate Element is : " + textArray[j]);
+                    }
+                } catch (Exception e) {
+                    // there can be some log or something else like for ex. removing all null objects
+                    // added nothing because it's doesn't matter for me if one of the elements is null
                 }
             }
         }
@@ -66,9 +80,14 @@ public class Task_1 {
 
         for (int i = 0; i < textArray.length-1; i++) {
             for (int j = i + 1; j < textArray.length; j++) {
-                if( (textArray[i].equals(textArray[j])) && (i != j) ) {
-                    System.out.println("Removing duplicate element - " + textArray[j]);
-                    textArray = ArrayUtils.remove(textArray, j);
+                try {
+                    if( (textArray[i].equals(textArray[j])) && (i != j) ) {
+                        System.out.println("Removing duplicate element - " + textArray[j]);
+                        textArray = ArrayUtils.remove(textArray, j);
+                    }
+                } catch (Exception e) {
+                    // there can be some log or something else like for ex. removing all null objects
+                    // added nothing because it's doesn't matter for me if one of the elements is null
                 }
             }
         }
@@ -81,9 +100,13 @@ public class Task_1 {
 
         Scanner in = new Scanner(System.in);
         System.out.print("Input number of a Day: ");
+        if (!in.hasNextInt()) {
+            System.out.println("Please enter a number, you entered - '" + in.next() + "'");
+            return "Invalid day range, please insert day between 1 and 7";
+        }
         int dayNumber = in.nextInt();
 
-        String dayName = "";
+        String dayName;
         switch (dayNumber) {
             case 1: dayName = "Monday"; break;
             case 2: dayName = "Tuesday"; break;
@@ -104,21 +127,29 @@ public class Task_1 {
         Scanner input = new Scanner(System.in);
 
         int numberDays = 0;
-        String MonthName = "Unknown";
+        String monthName;
 
-        System.out.print("Input a month number: ");
+        System.out.println("Input a month number: ");
+        if (!input.hasNextInt()) {
+            System.out.println("Please enter a number, you entered - '" + input.next() + "'");
+            return numberDays;
+        }
         int month = input.nextInt();
 
-        System.out.print("Input a year: ");
+        System.out.println("Input a year: ");
+        if (!input.hasNextInt()) {
+            System.out.println("Please enter a number, you entered - '" + input.next() + "'");
+            return numberDays;
+        }
         int year = input.nextInt();
 
         switch (month) {
             case 1:
-                MonthName = "January";
+                monthName = "January";
                 numberDays = 31;
                 break;
             case 2:
-                MonthName = "February";
+                monthName = "February";
                 if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
                     numberDays = 29;
                 } else {
@@ -126,46 +157,53 @@ public class Task_1 {
                 }
                 break;
             case 3:
-                MonthName = "March";
+                monthName = "March";
                 numberDays = 31;
                 break;
             case 4:
-                MonthName = "April";
+                monthName = "April";
                 numberDays = 30;
                 break;
             case 5:
-                MonthName = "May";
+                monthName = "May";
                 numberDays = 31;
                 break;
             case 6:
-                MonthName = "June";
+                monthName = "June";
                 numberDays = 30;
                 break;
             case 7:
-                MonthName = "July";
+                monthName = "July";
                 numberDays = 31;
                 break;
             case 8:
-                MonthName = "August";
+                monthName = "August";
                 numberDays = 31;
                 break;
             case 9:
-                MonthName = "September";
+                monthName = "September";
                 numberDays = 30;
                 break;
             case 10:
-                MonthName = "October";
+                monthName = "October";
                 numberDays = 31;
                 break;
             case 11:
-                MonthName = "November";
+                monthName = "November";
                 numberDays = 30;
                 break;
             case 12:
-                MonthName = "December";
+                monthName = "December";
                 numberDays = 31;
+                break;
+            default: monthName = "Unknown";
+
         }
-        System.out.print(MonthName + " " + year + " has " + numberDays + " days\n");
+        if (monthName != "Unknown") {
+            System.out.print(monthName + " " + year + " has " + numberDays + " days\n");
+        } else {
+            System.out.print("You entered wrong month number - " + month);
+        }
         return numberDays;
     }
 }
