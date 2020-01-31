@@ -52,6 +52,12 @@ public class CarShop {
         return allCars;
     }
 
+    public static void printAllCars(Car[] allCars) {
+        for (int i = 0; i < allCars.length; i++) {
+            System.out.println(allCars[i].brand + allCars[i].model + " - " + allCars[i].quantity + " car(s), color - " + allCars[i].color + ", price begins from - " + allCars[i].price);
+        }
+    }
+
     // scanner method calling search method
     public static Car[] getAvailableCars(Car[] allCars) {
 
@@ -59,16 +65,28 @@ public class CarShop {
             System.out.println("method getMinMaxValue parameter 'numbers' is: null or 0 length");
             return allCars;
         }
+        String message = "Please enter car brand you want to search for.  (q to Quit or all to see all cars list): ";
 
         Scanner input = new Scanner(System.in);
         String brand;
-        System.out.println("Please enter car brand you want to search for.  (q to Quit): ");
+        System.out.println(message);
         brand = input.nextLine();
+        if (brand.equals("all")){
+            printAllCars(allCars);
+            System.out.println("\n \n" +  message);
+            brand = input.nextLine();
+        }
 
         while (!brand.equals("q")) {
-            allCars = getBrand(brand, allCars);
-            System.out.println("\n \n Please enter car brand you want to search for.  (q to Quit): ");
-            brand = input.nextLine();
+            if (brand.equals("all")){
+                printAllCars(allCars);
+                System.out.println("\n \n" +  message);
+                brand = input.nextLine();
+            } else {
+                allCars = getBrand(brand, allCars);
+                System.out.println("\n \n " + message);
+                brand = input.nextLine();
+            }
         }
         return allCars;
     }
