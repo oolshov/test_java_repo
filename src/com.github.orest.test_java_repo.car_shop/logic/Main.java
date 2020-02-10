@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<Car> allCars = AllCars.getAvailableCars();
+        List<Car> allCars = CarStorage.getAvailableCars();
 
         String message = "Please enter car brand you want to search for.  (q to Quit or all to see all cars list): ";
         String brand;

@@ -8,7 +8,7 @@ import java.util.List;
 public class CarShop {
 
     // this method search for available brand and return Car array
-    public static List<Car> getBrand(String brand, List<Car> allCars) {
+    public static List<Car> getBrand(String brand, List<Car> allCars) throws IllegalArgumentException {
 
         if (allCars == null || allCars.size() < 1) {
             System.out.println("Something went wrong, list of cars is: null or 0 length");
@@ -25,9 +25,9 @@ public class CarShop {
         if (foundCars.size() > 0) {
             System.out.println("At this moment we have - " + foundCars.size() + " records with brand - " + brand);
             System.out.println("Available models is: ");
-            for (int i = 0; i < foundCars.size(); i++) {
-                System.out.println(foundCars.get(i).model + " - " + foundCars.get(i).quantity + " car(s), color - " + foundCars.get(i).color + ", price begins from - " + foundCars.get(i).price);
-            }
+
+            // Try to use .foreach like foundCars.forEach(i -> System.out.println(i));
+            foundCars.forEach(car -> System.out.println(car.model + " - " + car.quantity + " car(s), color - " + car.color + ", price begins from - " + car.price));
 
         } else {
             System.out.println("Sorry, no available brand - " + brand + " at this moment or you entered wrong text, please try again.");
