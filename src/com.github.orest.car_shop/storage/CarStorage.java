@@ -1,6 +1,6 @@
-package com.github.orest.test_java_repo.car_shop.logic;
+package com.github.orest.car_shop.storage;
 
-import com.github.orest.test_java_repo.car_shop.interfaces.*;
+import com.github.orest.car_shop.model.Car;
 import java.util.ArrayList;
 import java.util.List;
 
