@@ -9,28 +9,32 @@ public class Main {
 
         List<Car> allCars = CarStorage.getAvailableCars();
 
-        String message = "Please enter car brand you want to search for.  (q to Quit or all to see all cars list): ";
-        String brand;
+        String message = "Please enter car brand you want to search for.  ('q' to Quit, 'all' to see all cars list, 'a' to start auction): ";
+        String text;
 
         Scanner input = new Scanner(System.in);
 
         System.out.println(message);
-        brand = input.nextLine();
-        if (brand.equals("all")){
+        text = input.nextLine();
+        if (text.equals("all")){
             CarShop.printAllCars(allCars);
             System.out.println("\n \n" +  message);
-            brand = input.nextLine();
+            text = input.nextLine();
         }
 
-        while (!brand.equals("q")) {
-            if (brand.equals("all")){
+        while (!text.equals("q")) {
+            if (text.equals("all")){
                 CarShop.printAllCars(allCars);
                 System.out.println("\n \n" +  message);
-                brand = input.nextLine();
-            } else {
-                CarShop.getBrand(brand, allCars);
+                text = input.nextLine();
+            } else if (text.equals("a")) {
+                CarShop.startAuction(allCars);
                 System.out.println("\n \n " + message);
-                brand = input.nextLine();
+                text = input.nextLine();
+            } else {
+                CarShop.getBrand(text, allCars);
+                System.out.println("\n \n " + message);
+                text = input.nextLine();
             }
         }
     }
