@@ -1,4 +1,4 @@
-package com.github.orest.test_java_repo.car_shop.interfaces;
+package com.github.orest.car_shop.model;
 
 import lombok.*;
 
